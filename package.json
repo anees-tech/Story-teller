@@ -1,0 +1,14 @@
+{
+  "name": "your-mern-project",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "scripts": {
+    "start": "concurrently \"yarn run server\" \"yarn run client\"",
+    "client": "yarn --cwd ./frontend run start --prefix frontend",
+    "server": "yarn --cwd ./backend run nodemon -- prefix backend"
+  }
+}
