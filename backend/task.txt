@@ -1,0 +1,9 @@
+first fetch data from frontend ( Email, entered Passwords) = done
+check validation = done
+check the user's existance
+if not then create user in database
+generate accestoken and refreshtoken.
+remove password and refreshtoken from respon which will be sent to user
+store all data in cookies
+check for user creation.
+return respon

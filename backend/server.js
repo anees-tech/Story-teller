@@ -3,7 +3,8 @@ dotenv.config({path:'./config.env'})
 import express from 'express'
 import cors from 'cors'
 import dbConnect from './db/config.js'
- 
+import router from './routes/routes.js'
+// import crypto from 'crypto'
 const app = express()
 const PORT = process.env.PORT_NUMBER || 3002;
 
@@ -97,6 +98,11 @@ const products = [
 
   },
 ]
+
+// const buf = crypto.randomBytes(64).toString('hex')
+// console.log(buf)
+
+app.use('/user', router)
 
 app.get('/api/products', (req, res) => {
   res.json(products)

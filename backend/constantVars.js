@@ -1,4 +1,4 @@
-const dbName = 'products/'
+const dbName = 'users/'
 
  
 export {dbName}

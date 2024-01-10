@@ -6,12 +6,15 @@ const dbConnect = async () => {
    try {
     const dataBaseConnection = await mongoose
     .connect(`${process.env.DB_URI}/${dbName}`, {
-    }).then(()=>{
+    }).then((data)=>{
         console.log("dataBase is Connected ")
     })
-   } catch (error) {
+    const db = mongoose.connection;
+    console.log(db.models)
+} catch (error) {
     console.log(`Database Connection Failed ` + error);
    }
+
 }
 
 
