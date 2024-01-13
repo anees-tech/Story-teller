@@ -4,11 +4,17 @@ import bcrypt from "bcryptjs";
 
 const UserModel = new Schema(
   {
-    name: {
+    fullname: {
       type: String,
       required: true,
     },
     email: {
+      type: String,
+      required: true,
+      unique: true,
+      lowercase: true,
+    },
+    username: {
       type: String,
       required: true,
       unique: true,
@@ -35,8 +41,7 @@ const UserModel = new Schema(
     timestamps: true,
   }
 );
-
-// encrypting Password before saving it in database
+// encrypting Password before savi ng it in database
 
 UserModel.pre("save", async function (next) {
   if (!this.isModified("password")) {

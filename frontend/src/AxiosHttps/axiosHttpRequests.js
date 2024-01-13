@@ -11,5 +11,20 @@ const fetchData = async (apiUrl) => {
     }
 };
 
+const callApi = axios.create({
+    baseURL: process.env.REACT_APP_CALLBACK_URL,
+    headers: {
+        "Content-Type": "application/json",
+        Accept: 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS'
+    },
+});
+
+
+export const sendRegData = (data) => callApi.post('/user/register', data)
+
+
+
 
 export {fetchData}

@@ -1,4 +1,4 @@
-const dbName = 'users/'
+const DB_NAME = 'users'
 
  
-export {dbName}
+export {DB_NAME}

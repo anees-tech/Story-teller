@@ -8,10 +8,11 @@ const RefreshTokenSchema = new Schema(
             type: String,
             required: true,
         },
-        userID:{
-            type:Schema.Types.ObjectId,
-            ref:'User',
-        }
+        userID: {
+            type: Schema.Types.ObjectId,
+            required: true,
+            ref: "users",
+          },
     },
     {
         timestamps: true,

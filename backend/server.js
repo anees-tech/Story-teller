@@ -4,14 +4,18 @@ import express from 'express'
 import cors from 'cors'
 import dbConnect from './db/config.js'
 import router from './routes/routes.js'
+import bodyParser from 'body-parser'
+import cookieParser from 'cookie-parser'
 // import crypto from 'crypto'
 const app = express()
 const PORT = process.env.PORT_NUMBER || 3002;
-
+app.use(bodyParser.json())
+app.use(cookieParser())
 app.use(express.json())
 dbConnect()
 
-const corsOptions = {
+const corsOptions = { // cors options
+  credentials: true,
   origin: "http://localhost:3000" // frontend URI (ReactJS)
 }
 app.use(cors(corsOptions))
