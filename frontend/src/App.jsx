@@ -9,6 +9,7 @@ import {useSelector} from 'react-redux'
 import About from './components/About';
 import Navbar from './components/Navbar';
 import SetLoginRegSection from './components/AuthSection/SetLoginRegSection';
+
 function App() {
 
   return (
@@ -20,7 +21,7 @@ function App() {
         <Route path='/contact' element={<Contact />}></Route>
         <Route path='/about' element={<About />}></Route>
         <Route path='/buyNow' element={<ProtectedRoutes Component={BuyNow} />}></Route>
-        <Route path='//product-details/:productDetail' element={<ProtectedRoutes Component={ShowItem} />}></Route>
+        <Route path='/product-details/:productDetail' element={<ProtectedRoutes Component={ShowItem} />}></Route>
         <Route path='*' element={<FourZeroFour />}></Route>
       </Routes>
     </>
@@ -28,20 +29,17 @@ function App() {
 }
 
 
-
-
-
 function ProtectedRoutes(props) {
   const { isAuth} = useSelector(state => state.auth)
   const { Component } = props
   const navigate = useNavigate()
 
-
   useEffect(() => {
     if (!isAuth) {
       navigate('/login')
     }
-  })
+  }, [navigate, isAuth])
+
   return (
     <>
       <Component />

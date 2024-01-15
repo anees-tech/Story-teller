@@ -69,9 +69,9 @@ function Register() {
               value={email}
             />
           </div>
-          <div className="Email  flex flex-col my-2">
+          <div className="userName  flex flex-col my-2">
             <label className="text-xl text-gray-100 my-2" htmlFor="Name">
-              Enter Your Email
+              Enter Your User Name
             </label>
             <input
               className="px-2 py-3 rounded-xl outline-none border-none text-xl focus:bg-gray-200"

@@ -4,7 +4,7 @@ class ProductServices {
   // get all products
   async getProducts() {
     const products = await ProductModel.find();
-    console.log(products)
+    // console.log(products)
     return products;
   }
 }

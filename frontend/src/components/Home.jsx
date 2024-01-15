@@ -8,42 +8,41 @@ import { useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
 
 function Home() {
-    const [item, setItem] = useState([]);
+  const [item, setItem] = useState([]);
 
-    const [filteredProducts, setFilteredProducts] = useState(item);
+  const [filteredProducts, setFilteredProducts] = useState(item);
 
-    const filterProductsByCategory = (category) => {
-        if (category === 'All') {
-            setFilteredProducts(item);
-        } else {
-            const filtered = item.filter((product) => product.category === category);
-            setFilteredProducts(filtered);
-        }
+  const filterProductsByCategory = (productCategory) => {
+    if (productCategory === "All") {
+      setFilteredProducts(item);
+    } else {
+      const filtered = item.filter(
+        (product) => product.productCategory === productCategory
+      );
+      setFilteredProducts(filtered);
+    }
+  };
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchDataFromApi = async () => {
+      const apiData = await fetchData("/api/products");
+      const data = await apiData;
+      if (apiData) {
+        setItem(data);
+      }
     };
- 
+    fetchDataFromApi();
+  }, []);
+  useEffect(() => {
+    setFilteredProducts(item);
+  }, [item]);
 
-    const navigate = useNavigate();
-
-    useEffect(() => {
-        const fetchDataFromApi = async () => {
-            const apiData = await fetchData("/api/products");
-            const data = await apiData;
-            if (apiData) {
-                setItem(data);
-            }
-        };
-        fetchDataFromApi();
-
-    }, [])
-    useEffect(() => {
-        setFilteredProducts(item);
-      }, [item]);
-
-
-    // console.log(item)
-    // console.log(process.env.REACT_APP_CALLBACK_URL)
+  // console.log(item)
+  // console.log(process.env.REACT_APP_CALLBACK_URL)
     function handleOnClick({ alt, src, heading, detail, para, id, price }) {
-        console.log(id);
+        // console.log(id);
         navigate(`product-details/${id}`, {
             state: {
                 alt: alt,
@@ -57,43 +56,46 @@ function Home() {
         });
     }
 
-    return (
-        <>
-            <Navbar />
-            <div className="bg-[#18181b] p-10">
-                <CategoryFilters categories={['Floral Candles', 'Fall Candles']} onSelectCategory={filterProductsByCategory} />
+  return (
+    <>
+      <Navbar />
+      <div className="bg-[#18181b] p-10">
+        <CategoryFilters
+          categories={["Floral Candles", "Fall Candles"]}
+          onSelectCategory={filterProductsByCategory}
+        />
 
-                <div className="flex flex-wrap items-center px-50 gap-5 justify-center">
-                    {filteredProducts.map((item, index) => (
-                        <Products
-                            onClick={() =>
-                                handleOnClick({
-                                    alt: item.alt,
-                                    src: item.productImage,
-                                    heading: item.productName,
-                                    detail: item.productCategory,
-                                    para: item.productDescription,
-                                    id: item.id,
-                                    price: item.productPrice,
-                                })
-                            }
-                            key={item.productId}
-                            src={item.productImage}
-                            alt={item.productName}
-                            heading={item.productName}
-                            para={item.productDescription}
-                            detail={item.productDescription}
-                            id={item.productId}
-                            price={item.productPrice}
-                        />
-                    ))}
-                </div>
-            </div>
+        <div className="flex flex-wrap items-center px-50 gap-5 justify-center">
+          {filteredProducts.map((item, index) => (
+            <Products
+              onClick={() =>
+                handleOnClick({
+                  alt: item.productName,
+                  src: item.productImage,
+                  heading: item.productName,
+                  category: item.productCategory,
+                  para: item.productDescription,
+                  id: item.productId,
+                  price: item.productPrice,
+                })
+              }
+              key={item.productId}
+              src={item.productImage}
+              alt={item.productName}
+              heading={item.productName}
+              para={item.productDescription}
+              detail={item.productDescription}
+              id={item.productId}
+              price={item.productPrice}
+            />
+          ))}
+        </div>
+      </div>
 
-            <Testimonial />
-            <Footer />
-        </>
-    );
+      <Testimonial />
+      <Footer />
+    </>
+  );
 }
 
 export default Home;
