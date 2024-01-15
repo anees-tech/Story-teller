@@ -38,7 +38,7 @@ class AuthController {
             password,
             username,
             fullname,
-            activated:true,
+            activated: true,
           });
         }
         // console.log(user);
@@ -56,29 +56,37 @@ class AuthController {
       fullname: user.fullname,
     });
     await TokenServices.storingRefreshToken(refreshToken, user._id);
- 
+
     user.activated = true;
 
-    
-    res.cookie("refreshToken", refreshToken, {
-      maxAge: 1000 * 60 * 60 * 24 * 30,
-      secure: true,
-      httpOnly: true,
-    });
-
-    res.cookie("accessToken", accessToken, {
-      maxAge: 1000 * 60 * 60 * 24 * 30, 
-      secure: true,
-      httpOnly: true, 
-    });
+    res
+      .cookie("refreshToken", refreshToken, {
+        maxAge: 1000 * 60 * 60 * 24 * 30,
+        secure: false,
+        path: "http://localhost:3000",
+        httpOnly: true,
+        sameSite: "None",
+      })
+      .cookie("accessToken", accessToken, {
+        maxAge: 1000 * 60 * 60 * 24 * 30,
+        secure: false,
+        path: "http://localhost:3000",
+        httpOnly: true,
+        sameSite: "None",
+      });
+ 
     await user.save();
-    res.json({ success: true, message: "User registered successfully", user:{
-      email:email,
-      username:username,
-      fullname:fullname,
-      refreshToken:refreshToken,
-      isAuth:true,
-    }}); 
+    res.json({
+      success: true,
+      message: "User registered successfully",
+      user: {
+        email: email,
+        username: username,
+        fullname: fullname,
+        refreshToken: refreshToken,
+        isAuth: true,
+      },
+    });
     // res.send("<h2>User Created</h2>")
   }
 }

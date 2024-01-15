@@ -20,15 +20,16 @@ function Home() {
             setFilteredProducts(filtered);
         }
     };
-
+ 
 
     const navigate = useNavigate();
 
     useEffect(() => {
         const fetchDataFromApi = async () => {
             const apiData = await fetchData("/api/products");
+            const data = await apiData;
             if (apiData) {
-                setItem(apiData);
+                setItem(data);
             }
         };
         fetchDataFromApi();
@@ -68,21 +69,22 @@ function Home() {
                             onClick={() =>
                                 handleOnClick({
                                     alt: item.alt,
-                                    src: item.src,
-                                    heading: item.heading,
-                                    detail: item.category,
-                                    para: item.para,
+                                    src: item.productImage,
+                                    heading: item.productName,
+                                    detail: item.productCategory,
+                                    para: item.productDescription,
                                     id: item.id,
-                                    price: item.price,
+                                    price: item.productPrice,
                                 })
                             }
-                            key={index}
-                            src={item.src}
-                            alt={item.alt}
-                            heading={item.heading}
-                            para={item.para}
-                            detail={item.para}
-                            id={item.id}
+                            key={item.productId}
+                            src={item.productImage}
+                            alt={item.productName}
+                            heading={item.productName}
+                            para={item.productDescription}
+                            detail={item.productDescription}
+                            id={item.productId}
+                            price={item.productPrice}
                         />
                     ))}
                 </div>

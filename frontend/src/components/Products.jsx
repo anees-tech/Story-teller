@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const Product = ({ src, alt, heading, onClick, para, detail, price }) => {
+const Product = ({ src, alt, heading, onClick, detail, price }) => {
   return (
     <div className="card w-72 h-100 glass bg-gray-100 rounded-xl overflow-hidden px-5 py-5 my-6">
       <figure>
@@ -10,7 +10,8 @@ const Product = ({ src, alt, heading, onClick, para, detail, price }) => {
       <div className="card-body flex flex-col justify-between">
         <div>
           <h2 className="card-title">{heading}</h2>
-          <p className="mb-4">{para}</p>
+          <p className="mb-4">{detail}</p>
+          <p className="text-xl font-bold">{price}</p>
         </div>
         <button
           onClick={onClick}
