@@ -4,13 +4,22 @@ import axios from "axios";
 const fetchData = async (apiUrl) => {
     try {
         const response = await axios.get(`${process.env.REACT_APP_CALLBACK_URL}${apiUrl}`);
-        console.log(response.data[2].productId)
         return response.data;
     } catch (error) {
         console.log("API Connection Failed: " + error);
         return null;
     }
 };
+
+const productDetailsRoute = async (productId)=>{
+   try {
+     const response = await axios.get(`${process.env.REACT_APP_CALLBACK_URL}/${productId}`);
+     return response.data;
+   } catch (error) {
+    console.log("Product Details API Connection Failed: " + error);
+    return null;
+   }
+}
 
 const callApi = axios.create({
     baseURL: process.env.REACT_APP_CALLBACK_URL,
@@ -25,7 +34,8 @@ const callApi = axios.create({
 
 export const sendRegData = (data) => callApi.post('/user/register', data)
 
+export const sendLoginData = (data) => callApi.post('/user/login', data)
 
 
 
-export {fetchData}
+export {fetchData, productDetailsRoute}

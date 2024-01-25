@@ -35,6 +35,7 @@ function Home() {
     };
     fetchDataFromApi();
   }, []);
+  
   useEffect(() => {
     setFilteredProducts(item);
   }, [item]);

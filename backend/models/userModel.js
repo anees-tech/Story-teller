@@ -43,20 +43,20 @@ const UserModel = new Schema(
 );
 // encrypting Password before savi ng it in database
 
-UserModel.pre("save", async function (next) {
-  if (!this.isModified("password")) {
-    next();
-  }
-  const salt = await bcrypt.genSalt(10);
-  this.password = await bcrypt.hash(this.password, salt);
-  next();
-});
+// UserModel.pre("save", async function (next) {
+//   if (!this.isModified("password")) {
+//     next();
+//   }
+//   const salt = await bcrypt.genSalt(10);
+//   this.password = await bcrypt.hash(this.password, salt);
+//   next();
+// });
 
-// compare user password with encrytped password
+// // compare user password with encrytped password
 
-UserModel.methods.isCorrect = async function (password) {
-  return await bcrypt.compare(password, this.password);
-};
+// UserModel.methods.isCorrect = async function (password) {
+//   return await bcrypt.compare(password, this.password);
+// };
 
 
 const User = mongoose.model("user", UserModel);

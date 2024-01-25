@@ -1,16 +1,44 @@
 import React, { useState } from "react";
+import { sendLoginData } from "../../AxiosHttps/axiosHttpRequests";
+import { useNavigate } from "react-router-dom";
+import { setAuth } from "../../store/authSlice";
+import { useDispatch } from "react-redux";
+
 
 function Login() {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [email, setEmail] = useState("");
+  const [successLoggedIn, setSuccessLoggedIn] = useState(true);
+  const navigate = useNavigate()
+  const dispatch =useDispatch()
 
-  function handleOnClick(e) {
+
+  async function handleOnClick(e) {
     e.preventDefault();
+    // console.log(`${email password }`);
+    const { data } = await sendLoginData({
+      email,
+      password,
+    });
+    console.log(data.success);
+    if (!data.success) {
+      setSuccessLoggedIn(false);
+    }
+    // user.isAuth =true
+    if(data.success){
+      dispatch(setAuth({ user: data, isAuth: data.isAuth }));
+      navigate('/')
+    }
   }
 
   return (
     <>
-      <h2 className="text-white text-3xl font-bold my-5 text-center"> Please Login</h2>
+      <h2 className="text-white text-3xl font-bold my-5 text-center">
+        {" "}
+        Please Login
+      </h2>
+      {!successLoggedIn ? <p>User Wrong Credentials</p> : <></>}
       <form className=" my-2 shadow-md px-8 bg-slate-500 rounded-2xl mb-4">
         <div className="my-2 h-96 select-none items-center w-80">
           <div className="userName  flex flex-col my-2">
@@ -22,8 +50,13 @@ function Login() {
               type="text"
               id="username"
               placeholder="Username"
+              onChange={(e) => {
+                setEmail(e.target.value);
+              }}
+              required
             />
           </div>
+
           <div className="passowrd flex flex-col my-2">
             <label className="text-xl text-gray-100 my-2" htmlFor="password">
               Enter Your Password
@@ -44,6 +77,7 @@ function Login() {
               type="checkbox"
               className="w-4 h-4 mr-2 bg-gray-100 border-gray-300 rounded  dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600"
               value={showPassword}
+              required
               onChange={() => setShowPassword((prev) => !prev)}
             />
             <label
