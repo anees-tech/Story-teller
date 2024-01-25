@@ -11,15 +11,6 @@ const fetchData = async (apiUrl) => {
     }
 };
 
-const productDetailsRoute = async (productId)=>{
-   try {
-     const response = await axios.get(`${process.env.REACT_APP_CALLBACK_URL}/${productId}`);
-     return response.data;
-   } catch (error) {
-    console.log("Product Details API Connection Failed: " + error);
-    return null;
-   }
-}
 
 const callApi = axios.create({
     baseURL: process.env.REACT_APP_CALLBACK_URL,
@@ -38,4 +29,4 @@ export const sendLoginData = (data) => callApi.post('/user/login', data)
 
 
 
-export {fetchData, productDetailsRoute}
+export {fetchData}
