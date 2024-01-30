@@ -24,7 +24,6 @@ function App() {
         <Route path='/product-details/:productDetail' element={<ProtectedRoutes Component={ShowItem} />}></Route>
         <Route path='*' element={<FourZeroFour />}></Route>
       </Routes>
-
     </>
   );
 }
