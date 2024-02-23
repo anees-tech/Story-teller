@@ -1,12 +1,14 @@
 import React from "react";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
-
+import Testimonial from "./Testimonial";
+import HeaderForPages from "./HeaderForPages";
 function About() {
   return (
     <>
       <Navbar />
-      <h2>About Us</h2>
+      <HeaderForPages heading={"ABOUT US"} para={"We Are the best scented candles business in Lahore."}/>
+      <Testimonial/>
       <Footer />
     </>
   );

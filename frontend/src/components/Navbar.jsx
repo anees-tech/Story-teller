@@ -26,7 +26,7 @@ function Navbar({onClick, onChange}) {
 
   return (
     <>
-      <nav className="relative bg-white dark:bg-gray-900" data-open={isOpen}>
+      <nav className="relative bg-gray-900" data-open={isOpen}>
         <div className="container px-6 py-4 mx-auto md:flex md:justify-between md:items-center">
           <div className="flex items-center justify-between py-4">
             <Link to="/">
